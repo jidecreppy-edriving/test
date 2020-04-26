@@ -5,6 +5,7 @@ const TABLE_NAME = process.env.table_name;
 
 class FormManager {
   constructor() {
+    this.form = null;
   }
   
   buildForm = (form) => {
