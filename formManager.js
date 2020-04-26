@@ -5,7 +5,6 @@ const TABLE_NAME = process.env.table_name;
 
 
 module.exports.buildForm = (form) => {
-    // form = {formId:uuid.v1(), ...form};
     form.formId = uuid.v1();
     return form;
 }
