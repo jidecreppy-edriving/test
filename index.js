@@ -1,4 +1,5 @@
-const formManager = require("./formManager");
+const FormManager = require("./formManager");
+let formManager = new FormManager();
 
 function apiResponse(statusCode, message) {
   const response = {
