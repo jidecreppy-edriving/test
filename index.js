@@ -1,5 +1,7 @@
+const AWS = require("aws-sdk");
+const dynamo = new AWS.DynamoDB.DocumentClient();
 const FormManager = require("./formManager");
-let formManager = new FormManager();
+const formManager = new FormManager(dynamo);
 
 function apiResponse(statusCode, message) {
   const response = {

@@ -1,13 +1,12 @@
 const uuid = require("uuid");
-const AWS = require("aws-sdk");
-const dynamo = new AWS.DynamoDB.DocumentClient();
 const TABLE_NAME = process.env.table_name;
 
 class FormManager {
-  constructor() {
+  constructor(dynamo) {
     this.form = null;
+    this.dynamo = dynamo;
   }
-  
+
   buildForm = (form) => {
     this.form = form;
     this.form.formId = uuid.v1();
@@ -32,7 +31,7 @@ class FormManager {
       Item: form,
     };
 
-    return dynamo.put(params).promise();
+    return this.dynamo.put(params).promise();
   }
 
   getForm(formId) {
@@ -41,7 +40,7 @@ class FormManager {
       Key: { formId: formId },
     };
 
-    return dynamo
+    return this.dynamo
       .get(params)
       .promise()
       .then((response) => response.Item);
@@ -53,7 +52,7 @@ class FormManager {
       Key: { formId: formId },
     };
 
-    return dynamo.delete(params).promise();
+    return this.dynamo.delete(params).promise();
   }
 }
 
