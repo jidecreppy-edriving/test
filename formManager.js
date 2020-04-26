@@ -4,11 +4,12 @@ const dynamo = new AWS.DynamoDB.DocumentClient();
 const TABLE_NAME = process.env.table_name;
 
 class FormManager {
-    constructor() {
-        this.form = null;
-    }
+  constructor() {
+    this.form = null;
+  }
+  
   buildForm = (form) => {
-    this.form = form
+    this.form = form;
     this.form.formId = uuid.v1();
     return this.form;
   };
