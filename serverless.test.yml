@@ -1,0 +1,11 @@
+- name: form-service GET endpoint returns 200 with JSON request
+  endpoint:
+    function: formServiceSLS
+    method: GET
+  response:
+    status: 200
+  request:
+    headers:
+      x-api-key: ZrjNhSqWbD8GNX1QeztV73jeIYAcvqlo1pUossXZ
+    form:
+      formId: 8dc544e0-78b9-11ea-bf95-abd3d5079e36

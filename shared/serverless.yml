@@ -1,0 +1,31 @@
+service: vrm-form-service-database-sls
+app: form-service
+org: edriving
+
+provider:
+  name: aws
+  region: eu-west-2
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  table_name: database-${self:custom.stage}
+  table_region: database-${self:provider.region}
+
+resources:
+  Resources:
+    formStructureTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.table_name}
+        AttributeDefinitions:
+          - AttributeName: "formId"
+            AttributeType: "S"
+        KeySchema:
+          - AttributeName: "formId"
+            KeyType: "HASH"
+        BillingMode: PAY_PER_REQUEST
+
+outputs:
+  table_name: ${self:custom.table_name}
+  table_region: ${self:custom.table_region}
+
