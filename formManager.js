@@ -21,7 +21,6 @@ class FormManager {
     return this.getForm(formId);
   };
 
-  removeForm = ({ formId }) => {
   removeForm({ formId }) {
     return this.deleteForm(formId);
   };
