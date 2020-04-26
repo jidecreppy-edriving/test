@@ -7,7 +7,7 @@ class FormManager {
     this.dynamo = dynamo;
   }
 
-  buildForm = (form) => {
+  buildForm(form) {
     this.form = form;
     this.form.formId = uuid.v1();
     return this.form;
