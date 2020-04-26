@@ -13,15 +13,16 @@ class FormManager {
     return this.form;
   };
 
-  createForm = (form) => {
+  createForm(form) {
     return this.saveForm(form);
   };
 
-  findForm = ({ formId }) => {
+  findForm({ formId }) {
     return this.getForm(formId);
   };
 
   removeForm = ({ formId }) => {
+  removeForm({ formId }) {
     return this.deleteForm(formId);
   };
 
