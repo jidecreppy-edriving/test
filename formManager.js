@@ -1,54 +1,60 @@
-const uuid = require('uuid');
-const AWS  = require('aws-sdk');
+const uuid = require("uuid");
+const AWS = require("aws-sdk");
 const dynamo = new AWS.DynamoDB.DocumentClient();
 const TABLE_NAME = process.env.table_name;
 
+class FormManager {
+  constructor() {
+    this.form = null;
+  }
+  
+  buildForm = (form) => {
+    this.form = form;
+    this.form.formId = uuid.v1();
+    return this.form;
+  };
 
-module.exports.buildForm = (form) => {
-    // form = {formId:uuid.v1(), ...form};
-    form.formId = uuid.v1();
-    return form;
-}
+  createForm = (form) => {
+    return this.saveForm(form);
+  };
 
-module.exports.createForm = (form) => {
-    return saveForm(form);
-}
+  findForm = ({ formId }) => {
+    return this.getForm(formId);
+  };
 
-module.exports.findForm = ( {formId} ) => {
-    return getForm(formId);
-}
+  removeForm = ({ formId }) => {
+    return this.deleteForm(formId);
+  };
 
-module.exports.removeForm = ( {formId} ) => {
-    return deleteForm(formId);
-}
-
-function saveForm(form){
+  saveForm(form) {
     const params = {
-        TableName: TABLE_NAME,
-        Item: form
-    }
-    
+      TableName: TABLE_NAME,
+      Item: form,
+    };
+
     return dynamo.put(params).promise();
-}
+  }
 
-function getForm(formId) {
+  getForm(formId) {
     const params = {
-        TableName: TABLE_NAME,
-        Key: {
-            formId: formId
-        }
-    }
+      TableName: TABLE_NAME,
+      Key: { formId: formId },
+    };
 
-    return dynamo.get(params).promise().then( response => response.Item);
-}
+    return dynamo
+      .get(params)
+      .promise()
+      .then((response) => response.Item);
+  }
 
-function deleteForm(formId) {
+  deleteForm(formId) {
     const params = {
-        TableName: TABLE_NAME,
-        Key: {
-            formId: formId
-        }
-    }
+      TableName: TABLE_NAME,
+      Key: { formId: formId },
+    };
 
     return dynamo.delete(params).promise();
+  }
 }
+
+module.exports = FormManager;
