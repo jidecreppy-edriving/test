@@ -1,3 +1,14 @@
+const FormManager = require("../formManager");
+const AWS = require("aws-sdk");
+const dynamo = new AWS.DynamoDB.DocumentClient();
+const formManager = new FormManager(dynamo);
+
+
 test('adds 1 + 2 to equal 3', () => {
-    expect(1+2).toBe(3); //identical test
+    expect(1+2).toBe(3);
+});
+
+test('Creating a form returns an id', () => {
+    let form = formManager.buildForm({'name':'amazon'})
+    expect(form).toEqual({...form, formId : form.formId});
 });
