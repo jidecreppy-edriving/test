@@ -9,6 +9,7 @@ test('adds 1 + 2 to equal 3', () => {
 });
 
 test('Creating a form returns an id', () => {
-    let form = formManager.buildForm({'name':'amazon'})
-    expect(form).toEqual({...form, formId : form.formId});
+    let input = {'name':'amazon'};
+    let form = formManager.buildForm(input);
+    expect(form).toMatchObject({ ...input, 'formId':form.formId });
 });
