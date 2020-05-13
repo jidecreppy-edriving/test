@@ -1,31 +1,32 @@
 const uuid = require("uuid");
 const TABLE_NAME = process.env.table_name;
-
+// important change
+//Test changes
 class FormManager {
   constructor(dynamo) {
     this.form = null;
     this.dynamo = dynamo;
   }
 
-  buildForm(form) {
+  buildForm = (form) => {
     this.form = form;
     this.form.formId = uuid.v1();
     return this.form;
   };
 
-  createForm(form) {
+  createForm = (form) => {
     return this.saveForm(form);
   };
 
-  findForm({ formId }) {
+  findForm = ({ formId }) => {
     return this.getForm(formId);
   };
 
-  removeForm({ formId }) {
+  removeForm = ({ formId }) => {
     return this.deleteForm(formId);
   };
 
-  saveForm(form) {
+  saveForm = (form) => {
     const params = {
       TableName: TABLE_NAME,
       Item: form,
@@ -34,7 +35,7 @@ class FormManager {
     return this.dynamo.put(params).promise();
   }
 
-  getForm(formId) {
+  getForm = (formId) => {
     const params = {
       TableName: TABLE_NAME,
       Key: { formId: formId },
@@ -46,7 +47,7 @@ class FormManager {
       .then((response) => response.Item);
   }
 
-  deleteForm(formId) {
+  deleteForm = (formId) => {
     const params = {
       TableName: TABLE_NAME,
       Key: { formId: formId },
