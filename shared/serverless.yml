@@ -5,6 +5,7 @@ org: edriving
 provider:
   name: aws
   region: eu-west-2
+  runtime: nodejs12.x
 
 custom:
   stage: ${opt:stage, self:provider.stage}

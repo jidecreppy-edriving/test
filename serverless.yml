@@ -21,13 +21,14 @@ provider:
         - dynamodb:GetItem
         - dynamodb:DeleteItem
       Resource:
-        - arn:aws:dynamodb:*:*:table/${output::${param:env}::vrm-form-service-database-sls.table_name}
+        - arn:aws:dynamodb:#{AWS::Region}:#{AWS::AccountId}:table/${output::${param:env}::vrm-form-service-database-sls.table_name}
 
   region: eu-west-2
   
 functions:
   formServiceSLS:
     handler: index.handler
+    description: GET, POST and DELETE form structures from a Dynamo DB table
     events:
       - http:
           path: form-service-sls/structure

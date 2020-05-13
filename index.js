@@ -15,7 +15,7 @@ function apiResponse(statusCode, message) {
 }
 
 module.exports.handler = async (event) => {
-  const body = JSON.parse(event.body);
+  const body = event.body ? JSON.parse(event.body) : null;
   const params = event.queryStringParameters;
 
   switch (event.httpMethod) {
